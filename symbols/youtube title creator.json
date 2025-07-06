@@ -1,0 +1,140 @@
+{
+  "name": "youtube title creator",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1080,
+        -100
+      ],
+      "id": "10d777dd-23e5-454b-8ba5-f29c5d1288a7",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -880,
+        60
+      ],
+      "id": "b795fed8-eecf-4276-9acc-04bfe04f83c6",
+      "name": "When chat message received",
+      "webhookId": "780a3caf-32a5-4888-bec7-25e36f0ef087"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.titlePrompt }}",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -480,
+        -140
+      ],
+      "id": "e3d940a1-94a0-466c-b5f7-f07907c3bc54",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -560,
+        140
+      ],
+      "id": "b5158304-5f7b-4095-984e-4b572193ce59",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "e95QbimUJvBb4tqj",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const prompts = [\n  \"✨ Title Rule : Use no emojis in the title\",\n  \"🧠 Title Rule : Make the title emotional and curious\",\n  \"🎯 Title Rule : Keep title under 10 words\",\n  \"🔥 Title Rule : Start with a strong action verb\",\n  \"🔥 Title Rule : Youtube friendly\",\n  \"📈 Title Rule : Add a surprising number or stat\",\n  \"❓ Title Rule : Use a question to spark curiosity\",\n  \"🎬 Title Rule : Include the word 'how' if possible\",\n  \"🚀 Title Rule : Promise transformation or quick results\",\n  \"👀 Title Rule : Tease what's inside without revealing all\",\n  \"💡 Youtube Channel niche : help the people to do career fixes in the age of ai\",\n  \"💡 Video is about : need to talk to their computers\"\n];\n\nconst mergedPrompt = prompts.map((p, i) => `${i + 1}. ${p}`).join(\"\\n\");\n\nreturn [{ json: { titlePrompt: mergedPrompt } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -760,
+        -280
+      ],
+      "id": "ab524010-9269-4b90-a64c-aa9f508bf576",
+      "name": "VideoTitlePrompt"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "VideoTitlePrompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        []
+      ]
+    },
+    "VideoTitlePrompt": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "4189e83b-5304-46a0-a603-5f9de82639c8",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3df7c7c6cb7e0e978bf80ded11fce953795594ae8fe07b63ac449418b447c9e7"
+  },
+  "id": "KKvC37GvXId4EbzA",
+  "tags": []
+}
