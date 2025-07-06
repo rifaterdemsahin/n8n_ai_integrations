@@ -1,0 +1,153 @@
+{
+  "name": "llm template clone it",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1080,
+        -100
+      ],
+      "id": "0c07aa99-ffee-4032-a160-6c335450949a",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -760,
+        80
+      ],
+      "id": "d93af81d-2db1-4045-9c45-6efce6167f79",
+      "name": "When chat message received",
+      "webhookId": "021dca4b-5067-4140-b067-637df7651327"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.output }}",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -480,
+        -160
+      ],
+      "id": "444e22f8-3536-49d1-835b-bfd018dc6ca2",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        60
+      ],
+      "id": "3b473d43-95f0-48cf-b1e7-ef6c5cd39f0e",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "e95QbimUJvBb4tqj",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const prompts = [\n  \"Create a bold and eye-catching YouTube thumbnail image\",\n  \"Theme: Career fixes in the age of AI, communicating with computers\",\n  \"Style: Clean, modern, tech-inspired with vibrant colors\",\n  \"Include a strong headline text (under 10 words), no emojis\",\n  \"Headline should be emotional, curious, and start with an action verb\",\n  \"Use a question or 'how' to spark curiosity\",\n  \"Add a surprising number or stat if possible\",\n  \"Make it YouTube friendly and easy to read on small screens\",\n  \"Tease transformation or quick results visually\",\n  \"Visual elements: computer, AI icons, career or job symbols\",\n  \"Background: futuristic digital or coding theme\",\n  \"Do not reveal everything; keep some mystery\",\n  \"Ensure text contrast for readability\"\n];\n\nconst mergedPrompt = prompts.map((p, i) => `${i + 1}. ${p}`).join(\"\\n\");\n\nreturn [{ json: { output: mergedPrompt } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -760,
+        -280
+      ],
+      "id": "0998787e-1b37-45ec-8bda-ba32cd5282cb",
+      "name": "Prompt"
+    },
+    {
+      "parameters": {
+        "content": "## Generic Template\n**Clone Me** "
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1320,
+        -280
+      ],
+      "id": "0954bee7-ce68-44aa-bbcd-c0b3755b8141",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        []
+      ]
+    },
+    "Prompt": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "72d6cfdc-7bdb-4a9f-ba61-52eaab565253",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3df7c7c6cb7e0e978bf80ded11fce953795594ae8fe07b63ac449418b447c9e7"
+  },
+  "id": "U8GTYgF4jVySqS9Q",
+  "tags": []
+}
