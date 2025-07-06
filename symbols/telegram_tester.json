@@ -1,0 +1,163 @@
+{
+  "name": "telegram tester",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "298514ab-6f36-4212-bbce-939831f3e0ce",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "list",
+        "owner": {
+          "__rl": true,
+          "value": "https://github.com/rifaterdemsahin/n8n_ai_integrations",
+          "mode": "url"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "n8n_ai_integrations",
+          "mode": "list",
+          "cachedResultName": "n8n_ai_integrations",
+          "cachedResultUrl": "https://github.com/rifaterdemsahin/n8n_ai_integrations"
+        }
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        560,
+        340
+      ],
+      "id": "88ce30fb-f191-49af-aec5-5adede4fd2f0",
+      "name": "List files",
+      "webhookId": "825dd540-8c7e-4005-85ac-a3c5ef8a1271",
+      "credentials": {
+        "githubApi": {
+          "id": "NMEMNXJLWLc415GM",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "contact@rifaterdemsahin",
+        "subject": "n8n",
+        "message": "test",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        20,
+        340
+      ],
+      "id": "1807dfa8-9bc7-4a4d-a245-3ad30d9b9757",
+      "name": "Send a message",
+      "webhookId": "04968f78-6564-4d32-98d8-7c85d2f15f10",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YJWBLL2NMyRjSIOr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "-1002793496878",
+        "text": "todays joke is",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        220,
+        0
+      ],
+      "id": "f97fce7e-b8c9-4fd4-a6a5-75d6293a1669",
+      "name": "Send a text message",
+      "webhookId": "061c728a-457c-425b-8b62-fb56abb3b1ad",
+      "credentials": {
+        "telegramApi": {
+          "id": "FNhCBbEpIegop14Z",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c9296684-0baa-4f8a-a4fe-621f8caa3e0a",
+              "leftValue": "1",
+              "rightValue": "1",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        280,
+        340
+      ],
+      "id": "1d5e9682-0297-4a50-8656-a671299d19cf",
+      "name": "If"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List files": {
+      "main": [
+        []
+      ]
+    },
+    "If": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "89af17da-d585-4d99-a9c0-4cadb06040b9",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3df7c7c6cb7e0e978bf80ded11fce953795594ae8fe07b63ac449418b447c9e7"
+  },
+  "id": "TV6UKyOA6nSto0QH",
+  "tags": []
+}
