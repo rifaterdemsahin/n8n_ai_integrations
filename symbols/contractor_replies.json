@@ -1,0 +1,211 @@
+{
+  "name": "contractor_replies",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "14dd1d88-2c94-459e-bf6c-ea8876adcb92",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "filters": {
+          "labelIds": [
+            "Label_4716836601042464671"
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        220,
+        0
+      ],
+      "id": "d3119265-7d2a-4943-9f9a-74bf92ad0865",
+      "name": "Get many messages",
+      "webhookId": "7710e3a3-ee17-4857-967e-35b6afb130d3",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YJWBLL2NMyRjSIOr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "rifaterdemsahin@hotmail.com",
+        "subject": "Thank you for your interest!",
+        "message": " I’ve linked my CV and related documents for your review. 📄 If you’d prefer to communicate directly or find email communication inconvenient, feel free to reach me at 📞 +447848024173. CV > https://rifaterdemsahin.com/wp-content/uploads/2025/05/erdem-sahin-cv_summary_2025_may.pdf  Alternatively, you can schedule a time for us to discuss further using my Calendly link: 📅 https://calendly.com/rifaterdem/schedule.  Best regards,   Rifat Erdem Sahin   🔗 CV Download  ---  **CV Summary:**  **Erdem Sahin - CV Summary**   🇬🇧 Citizenship: British   📍 Location: London, United Kingdom   ✉️ Email: contact@rifaterdemsahin.com  📞 Phone: +44 7848 024173   🔗 LinkedIn: rifaterdemsahin    GitHub: rifaterdemsahin    **Professional Profile:**   An experienced engineer with deep expertise in CI/CD, DevOps, and AI-based architectures, Erdem has a proven track record in optimizing and automating enterprise systems. He has a particular focus on automation, scalability, and security, with experience in both cloud and on-premise solutions.   **Core:**  🤖 Deep expertise in building and deploying Generative AI solutions, with extensive hands-on experience developing Large Language Model applications 🔄 Advanced implementation skills in RAG architectures, vector databases, and modern LLM frameworks 🔒 Expert-level knowledge of AI security practices, including prompt injection prevention, data privacy controls, and secure model deployment 🏗️ Track record of shaping enterprise architecture decisions, focusing on scalable and maintainable AI solutions 🧪 Mastery of comprehensive testing approaches across unit, integration, and end-to-end testing, ensuring robust AI system deployment 👥 Collaborative team player with proven success in agile environments, consistently delivering complex AI projects on schedule  **Key Accomplishments:**   🏆 2024: Developed an AI-driven CI/CD framework for Goldman Sachs (Muscat, Oman), increasing deployment frequency by 300% and reducing costs by 30%.   🏆 2023: Migrated IoT systems and optimized workflows at Ypsomed (Switzerland), resulting in a 40% reduction in versioning conflicts.   🏆 2022: Automated ETL processes for Cushman & Wakefield (London, UK), increasing data processing speed by 50%.   🏆 2021: Improved computational efficiency by 45% with Kubernetes and GPU-based containers for Emerson (USA).   🏆 2016: Increased technology utilization by 50% as an Enterprise Transformation Architect for Microsoft.  **Competencies:**   💼 Core Skills: DevOps, Transformation Specialist, SRE, Security Clearance, AI Consultant.   💻 Technical Expertise: CI/CD, AI Integration, Cloud Computing, Infrastructure as Code, Kubernetes, Docker, Data Engineering.   🛠 Familiar Tools: Azure, AWS, GCP, Terraform, Ansible, Jenkins, Python, and more.  **Education:**   🎓 Bachelor of Science – Southern New Hampshire University, USA (2013)🇺🇸  🎓 Diploma – Severna Park High School, USA (1999)🇺🇸  **Certifications:**   📜 Microsoft Certified Architect in Cloud Solutions (70-532).  **Security Clearances:**   Active till  > 🔒 UK SC (2028), NATO (2029),   Conducted Background Checks: Watchdog (2024) and Sterling (2019).  **Availability:**   Open for scheduling through Calendly 📅 https://calendly.com/rifaterdem/schedule  --- **Presentation**  https://rifaterdemsahin.com/wp-content/uploads/2025/02/rifaterdemsahinprofilepresentation.v2025.2.pdf  **Short CV Direct PDF/Word Download Links:**  https://rifaterdemsahin.com/wp-content/uploads/2025/05/erdem-sahin-cv_summary_2025_may.pdf https://rifaterdemsahin.com/wp-content/uploads/2025/05/erdem-sahin-cv_summary_2025_may.docx  📥 To download, please exit the LinkedIn environment and check your downloads folder. ✅",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        800,
+        60
+      ],
+      "id": "37e1dd47-c4c9-4ce1-b8a3-ee3574f6833b",
+      "name": "Send a message",
+      "webhookId": "c83833cf-6f70-4cfd-a96a-10657eb5010d",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YJWBLL2NMyRjSIOr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "markAsRead",
+        "messageId": "={{ $json.threadId }}"
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1020,
+        60
+      ],
+      "id": "9169baf2-211b-47cf-bed7-7b045897813e",
+      "name": "Mark a message as read",
+      "webhookId": "92dcf523-6764-45ac-90d6-b13be47e90d8",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YJWBLL2NMyRjSIOr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        460,
+        -260
+      ],
+      "id": "4eaf1919-ed0b-42f2-860a-5addbb5a125f",
+      "name": "When chat message received",
+      "webhookId": "81a6de30-6a82-4322-9aee-6f0e3c30bc26"
+    },
+    {
+      "parameters": {
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        480,
+        220
+      ],
+      "id": "1310d36f-034e-41f1-8017-2c774bda3915",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        780,
+        -300
+      ],
+      "id": "e9beaec2-da43-4753-935a-50c2d17d4ba4",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "e95QbimUJvBb4tqj",
+          "name": "OpenRouter account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get many messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many messages": {
+      "main": [
+        []
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Mark a message as read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0b295e02-655b-4aeb-bcbd-6c4a1e1cacde",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3df7c7c6cb7e0e978bf80ded11fce953795594ae8fe07b63ac449418b447c9e7"
+  },
+  "id": "BY8GdtJWGuNpI26H",
+  "tags": []
+}
